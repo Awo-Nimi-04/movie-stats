@@ -33,7 +33,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-[VideoWalkthrough](https://www.screentogif.com/)
+[VideoWalkthrough](https://imgur.com/a/teIWarG)
 
 <!-- Replace this with whatever GIF tool you used! -->
 GIF created with ...  

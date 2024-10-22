@@ -4,6 +4,7 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import ProductCard from "./components/ProductCard";
 import SummaryCard from "./components/SummaryCard";
+import SidePanel from "./components/SidePanel";
 
 const getMax = (data) => {
   data = data.sort((a, b) => -a.rating.count + b.rating.count);
@@ -71,109 +72,115 @@ function App() {
   };
 
   return (
-    <div className="main">
-      <div className="filters">
-        <div className="filter-content">
-          <input
-            type="text"
-            placeholder="Search..."
-            value={search}
-            onChange={handleSearchInput}
-          />
-        </div>
-
-        <div className="filter-content">
-          <label>Price: </label>
-          <input
-            type="range"
-            name="volume"
-            min="0"
-            max="1000"
-            onChange={handleChangeSlider}
-            value={slider}
-          ></input>
-          ${slider} or lower
-        </div>
-
-        <div className="filter-content">
-          <label>Categories: </label>
-
-          <input
-            type="radio"
-            name="categories"
-            value=""
-            onChange={handleSelectCategory}
-          />
-          <label>All</label>
-
-          <input
-            type="radio"
-            name="categories"
-            value="men's clothing"
-            onChange={handleSelectCategory}
-          />
-          <label>Men's clothing</label>
-
-          <input
-            type="radio"
-            name="categories"
-            value="women's clothing"
-            onChange={handleSelectCategory}
-          />
-          <label>Women's clothing</label>
-
-          <input
-            type="radio"
-            name="categories"
-            value="electronics"
-            onChange={handleSelectCategory}
-          />
-          <label>Electronics</label>
-
-          <input
-            type="radio"
-            name="categories"
-            value="jewelery"
-            onChange={handleSelectCategory}
-          />
-          <label>Jewelry</label>
-        </div>
-
-        <button onClick={handleSubmitSearch}>Search</button>
+    <div className="home">
+      <div className="dashboard">
+        <SidePanel />
       </div>
-      <div className="summary">
-        {products && <SummaryCard title={"Number of Products"} value={20} />}
-        {products && (
-          <SummaryCard
-            title={"Highest Rated Product"}
-            value={getMax([...products]).title}
-            extra={getMax([...products]).rating.rate}
-          />
-        )}
-        {products && (
-          <SummaryCard
-            title={"Average Product Price"}
-            value={getAvg([...products])}
-            isMoney={true}
-          />
-        )}
-      </div>
-      <ul className="listings">
-        {filteredProducts &&
-          filteredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              title={product.title}
-              image={product.image}
-              price={product.price}
+      <div className="main">
+        <div className="filters">
+          <div className="search">
+            <div className="filter-content">
+              <input
+                type="text"
+                placeholder="Search..."
+                value={search}
+                onChange={handleSearchInput}
+              />
+            </div>
+          </div>
+          <div className="filter-content">
+            <label>Price: </label>
+            <input
+              type="range"
+              name="volume"
+              min="0"
+              max="1000"
+              onChange={handleChangeSlider}
+              value={slider}
+            ></input>
+            ${slider} or lower
+          </div>
+          <div className="filter-content">
+            <label>Categories: </label>
+
+            <input
+              type="radio"
+              name="categories"
+              value=""
+              onChange={handleSelectCategory}
             />
-          ))}
-      </ul>
-      {(!products || filteredProducts.length === 0) && (
-        <div className="placeholder">
-          <h1>No Products...</h1>
+            <label>All</label>
+
+            <input
+              type="radio"
+              name="categories"
+              value="men's clothing"
+              onChange={handleSelectCategory}
+            />
+            <label>Men's clothing</label>
+
+            <input
+              type="radio"
+              name="categories"
+              value="women's clothing"
+              onChange={handleSelectCategory}
+            />
+            <label>Women's clothing</label>
+
+            <input
+              type="radio"
+              name="categories"
+              value="electronics"
+              onChange={handleSelectCategory}
+            />
+            <label>Electronics</label>
+
+            <input
+              type="radio"
+              name="categories"
+              value="jewelery"
+              onChange={handleSelectCategory}
+            />
+            <label>Jewelry</label>
+          </div>
+          <div className="search_btn">
+            <button onClick={handleSubmitSearch}>🔍Search</button>
+          </div>
         </div>
-      )}
+        <div className="summary">
+          {products && <SummaryCard title={"Number of Products"} value={20} />}
+          {products && (
+            <SummaryCard
+              title={"Highest Rated Product"}
+              value={getMax([...products]).title}
+              extra={getMax([...products]).rating.rate}
+            />
+          )}
+          {products && (
+            <SummaryCard
+              title={"Average Product Price"}
+              value={getAvg([...products])}
+              isMoney={true}
+            />
+          )}
+        </div>
+        <ul className="listings">
+          {filteredProducts &&
+            filteredProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                title={product.title}
+                image={product.image}
+                price={product.price}
+              />
+            ))}
+        </ul>
+        {(!products || filteredProducts.length === 0) && (
+          <div className="placeholder">
+            <h1>No Products...</h1>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
